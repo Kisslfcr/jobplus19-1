@@ -13,6 +13,9 @@ class DevelopmentConfig(BaseConfig):
     mysql_pwd = os.environ.get('MYSQL_PWD') or ''
     uri = 'mysql://root:{}@localhost:3306/jobplus?charset=utf8'
     SQLALCHEMY_DATABASE_URI = uri.format(mysql_pwd)
+    print('=======================================================')
+    print('SQLALCHEMY_DATABASE_URI:', SQLALCHEMY_DATABASE_URI)
+    print('=======================================================')
 
 
 class ProductionConfig(BaseConfig):

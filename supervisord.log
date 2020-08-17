@@ -1,0 +1,185 @@
+[2020-08-12 16:58:05 +0800] [16324] [ERROR] Error handling request /
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/engine/base.py", line 2339, in _wrap_pool_connect
+    return fn()
+  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/pool/base.py", line 364, in connect
+    return _ConnectionFairy._checkout(self)
+  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/pool/base.py", line 778, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/pool/base.py", line 495, in checkout
+    rec = pool._do_get()
+  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/pool/impl.py", line 140, in _do_get
+    self._dec_overflow()
+  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/util/langhelpers.py", line 69, in __exit__
+    exc_value, with_traceback=exc_tb,
+  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/util/compat.py", line 178, in raise_
+    raise exception
+  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/pool/impl.py", line 137, in _do_get
+    return self._create_connection()
+  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/pool/base.py", line 309, in _create_connection
+    return _ConnectionRecord(self)
+  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/pool/base.py", line 440, in __init__
+    self.__connect(first_connect_check=True)
+  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/pool/base.py", line 661, in __connect
+    pool.logger.debug("Error on connect(): %s", e)
+  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/util/langhelpers.py", line 69, in __exit__
+    exc_value, with_traceback=exc_tb,
+  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/util/compat.py", line 178, in raise_
+    raise exception
+  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/pool/base.py", line 656, in __connect
+    connection = pool._invoke_creator(self)
+  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/engine/strategies.py", line 114, in connect
+    return dialect.connect(*cargs, **cparams)
+  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/engine/default.py", line 493, in connect
+    return self.dbapi.connect(*cargs, **cparams)
+  File "/usr/local/lib/python3.5/dist-packages/MySQLdb/__init__.py", line 130, in Connect
+    return Connection(*args, **kwargs)
+  File "/usr/local/lib/python3.5/dist-packages/MySQLdb/connections.py", line 185, in __init__
+    super().__init__(*args, **kwargs2)
+MySQLdb._exceptions.OperationalError: (1045, "Access denied for user 'root'@'localhost' (using password: NO)")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.5/dist-packages/gunicorn/workers/sync.py", line 134, in handle
+    self.handle_request(listener, req, client, addr)
+  File "/usr/local/lib/python3.5/dist-packages/gunicorn/workers/sync.py", line 175, in handle_request
+    respiter = self.wsgi(environ, resp.start_response)
+  File "/usr/local/lib/python3.5/dist-packages/flask/app.py", line 2464, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/usr/local/lib/python3.5/dist-packages/flask/app.py", line 2450, in wsgi_app
+    response = self.handle_exception(e)
+  File "/usr/local/lib/python3.5/dist-packages/flask/app.py", line 1867, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python3.5/dist-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/usr/local/lib/python3.5/dist-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.5/dist-packages/flask/app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.5/dist-packages/flask/app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python3.5/dist-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/usr/local/lib/python3.5/dist-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.5/dist-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/shiyanlou/clark/jobplus19-1/jobplus/handlers/front.py", line 15, in index
+    return render_template('index.html',jobs=jobs,companies=companies)
+  File "/usr/local/lib/python3.5/dist-packages/flask/templating.py", line 140, in render_template
+    ctx.app,
+  File "/usr/local/lib/python3.5/dist-packages/flask/templating.py", line 120, in _render
+    rv = template.render(context)
+  File "/usr/local/lib/python3.5/dist-packages/jinja2/environment.py", line 1090, in render
+    self.environment.handle_exception()
+  File "/usr/local/lib/python3.5/dist-packages/jinja2/environment.py", line 832, in handle_exception
+    reraise(*rewrite_traceback_stack(source=source))
+  File "/usr/local/lib/python3.5/dist-packages/jinja2/_compat.py", line 28, in reraise
+    raise value.with_traceback(tb)
+  File "/home/shiyanlou/clark/jobplus19-1/jobplus/templates/index.html", line 2, in top-level template code
+    {% from 'macros.html' import render_job,render_company %}
+  File "/home/shiyanlou/clark/jobplus19-1/jobplus/templates/base.html", line 79, in top-level template code
+    {% block body %}{% endblock %}
+  File "/home/shiyanlou/clark/jobplus19-1/jobplus/templates/index.html", line 9, in block "body"
+    {% for job in jobs %}
+  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/orm/query.py", line 3503, in __iter__
+    return self._execute_and_instances(context)
+  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/orm/query.py", line 3525, in _execute_and_instances
+    querycontext, self._connection_from_session, close_with_result=True
+  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/orm/query.py", line 3540, in _get_bind_args
+    mapper=self._bind_mapper(), clause=querycontext.statement, **kw
+  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/orm/query.py", line 3518, in _connection_from_session
+    conn = self.session.connection(**kw)
+  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/orm/session.py", line 1141, in connection
+    execution_options=execution_options,
+  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/orm/session.py", line 1147, in _connection_for_bind
+    engine, execution_options
+  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/orm/session.py", line 433, in _connection_for_bind
+    conn = bind._contextual_connect()
+  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/engine/base.py", line 2305, in _contextual_connect
+    self._wrap_pool_connect(self.pool.connect, None),
+  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/engine/base.py", line 2343, in _wrap_pool_connect
+    e, dialect, self
+  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/engine/base.py", line 1585, in _handle_dbapi_exception_noconnection
+    sqlalchemy_exception, with_traceback=exc_info[2], from_=e
+  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/util/compat.py", line 178, in raise_
+    raise exception
+  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/engine/base.py", line 2339, in _wrap_pool_connect
+    return fn()
+  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/pool/base.py", line 364, in connect
+    return _ConnectionFairy._checkout(self)
+  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/pool/base.py", line 778, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/pool/base.py", line 495, in checkout
+    rec = pool._do_get()
+  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/pool/impl.py", line 140, in _do_get
+    self._dec_overflow()
+  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/util/langhelpers.py", line 69, in __exit__
+    exc_value, with_traceback=exc_tb,
+  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/util/compat.py", line 178, in raise_
+    raise exception
+  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/pool/impl.py", line 137, in _do_get
+    return self._create_connection()
+  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/pool/base.py", line 309, in _create_connection
+    return _ConnectionRecord(self)
+  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/pool/base.py", line 440, in __init__
+    self.__connect(first_connect_check=True)
+  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/pool/base.py", line 661, in __connect
+    pool.logger.debug("Error on connect(): %s", e)
+  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/util/langhelpers.py", line 69, in __exit__
+    exc_value, with_traceback=exc_tb,
+  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/util/compat.py", line 178, in raise_
+    raise exception
+  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/pool/base.py", line 656, in __connect
+    connection = pool._invoke_creator(self)
+  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/engine/strategies.py", line 114, in connect
+    return dialect.connect(*cargs, **cparams)
+  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/engine/default.py", line 493, in connect
+    return self.dbapi.connect(*cargs, **cparams)
+  File "/usr/local/lib/python3.5/dist-packages/MySQLdb/__init__.py", line 130, in Connect
+    return Connection(*args, **kwargs)
+  File "/usr/local/lib/python3.5/dist-packages/MySQLdb/connections.py", line 185, in __init__
+    super().__init__(*args, **kwargs2)
+sqlalchemy.exc.OperationalError: (MySQLdb._exceptions.OperationalError) (1045, "Access denied for user 'root'@'localhost' (using password: NO)")
+(Background on this error at: http://sqlalche.me/e/13/e3q8)
+[2020-08-12 16:59:47 +0800] [16318] [INFO] Handling signal: term
+[2020-08-12 16:59:47 +0800] [16321] [INFO] Worker exiting (pid: 16321)
+=======================================================
+SQLALCHEMY_DATABASE_URI: mysql://root:@localhost:3306/jobplus?charset=utf8
+=======================================================
+[2020-08-12 16:59:47 +0800] [16322] [INFO] Worker exiting (pid: 16322)
+=======================================================
+SQLALCHEMY_DATABASE_URI: mysql://root:@localhost:3306/jobplus?charset=utf8
+=======================================================
+[2020-08-12 16:59:47 +0800] [16324] [INFO] Worker exiting (pid: 16324)
+=======================================================
+SQLALCHEMY_DATABASE_URI: mysql://root:@localhost:3306/jobplus?charset=utf8
+=======================================================
+[2020-08-12 16:59:48 +0800] [16318] [INFO] Shutting down: Master
+[2020-08-12 17:01:25 +0800] [16653] [INFO] Starting gunicorn 20.0.4
+[2020-08-12 17:01:25 +0800] [16653] [INFO] Listening at: http://127.0.0.1:8002 (16653)
+[2020-08-12 17:01:25 +0800] [16653] [INFO] Using worker: sync
+[2020-08-12 17:01:25 +0800] [16659] [INFO] Booting worker with pid: 16659
+[2020-08-12 17:01:25 +0800] [16661] [INFO] Booting worker with pid: 16661
+[2020-08-12 17:01:25 +0800] [16662] [INFO] Booting worker with pid: 16662
+[2020-08-12 17:02:13 +0800] [16653] [INFO] Handling signal: term
+[2020-08-12 17:02:13 +0800] [16659] [INFO] Worker exiting (pid: 16659)
+=======================================================
+SQLALCHEMY_DATABASE_URI: mysql://root:oracle@localhost:3306/jobplus?charset=utf8
+=======================================================
+[2020-08-12 17:02:13 +0800] [16662] [INFO] Worker exiting (pid: 16662)
+=======================================================
+SQLALCHEMY_DATABASE_URI: mysql://root:oracle@localhost:3306/jobplus?charset=utf8
+=======================================================
+[2020-08-12 17:02:13 +0800] [16661] [INFO] Worker exiting (pid: 16661)
+=======================================================
+SQLALCHEMY_DATABASE_URI: mysql://root:oracle@localhost:3306/jobplus?charset=utf8
+=======================================================
+[2020-08-12 17:02:13 +0800] [16653] [INFO] Shutting down: Master
+[2020-08-12 17:03:02 +0800] [16698] [INFO] Starting gunicorn 20.0.4
+[2020-08-12 17:03:02 +0800] [16698] [INFO] Listening at: http://127.0.0.1:8002 (16698)
+[2020-08-12 17:03:02 +0800] [16698] [INFO] Using worker: sync
+[2020-08-12 17:03:02 +0800] [16704] [INFO] Booting worker with pid: 16704
+[2020-08-12 17:03:02 +0800] [16706] [INFO] Booting worker with pid: 16706
+[2020-08-12 17:03:02 +0800] [16707] [INFO] Booting worker with pid: 16707
